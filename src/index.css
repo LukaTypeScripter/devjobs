@@ -1,0 +1,26 @@
+:root {
+    --text-color: #19202d;
+    --light-text-color: #6e8098;
+    --app-bg-color: #f2f2f2;
+    --filters-bg-color: #fff;
+    --checkbox-bg-color: #e7e8e9;
+    --placeholder-color: #8c8f96;
+    --button-light-bg-color: #eeeffc;
+    --button-light-bg-color-hvr: #c5c9f4;
+    --button-light-color: #5964e0;
+}
+body {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+#app.darkMode {
+    --text-color: #fff;
+    --light-text-color: #9daec2;
+    --app-bg-color: #121721;
+    --filters-bg-color: #19202d;
+    --checkbox-bg-color: #313743;
+    --button-light-bg-color: #303642;
+    --button-light-bg-color-hvr: #525861;
+    --button-light-color: #fff;
+}
