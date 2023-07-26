@@ -1,4 +1,4 @@
-import { blogr, coffe, creative, crowdfund, maker, mastercraft, pod, pomodoro, scoot, typemaster, vector } from "./assets/logos";
+import { blogr, coffe, creative, crowdfund, maker, mastercraft, officelite, pod, pomodoro, scoot, typemaster, vector } from "./assets/logos";
 
 export const data =[
     {
@@ -96,7 +96,7 @@ export const data =[
     {
       "id": 4,
       "company": "Office Lite",
-      "logo": `${onoffline}`,
+      "logo": `${officelite}`,
       "logoBackground": "hsl(227, 62%, 48%)",
       "position": "Senior Application Engineer",
       "postedAt": "2d ago",

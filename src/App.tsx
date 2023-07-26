@@ -7,10 +7,13 @@ import SpecificJobs from './pages/specificJobs/SpecificJobs';
 import styled from 'styled-components';
 import DarkModeContext from './contexts/Theme';
 
+
 const App: React.FC = () => {
+
   const {theme} = useContext(DarkModeContext)
   return (
     <Router>
+      
       <AppCont id='app' className={`${theme === 'light' ? '': 'darkMode'}`}>
     <Routes>
       <Route   path="/" element={<Jobs/>} />
@@ -28,7 +31,6 @@ display: flex;
     font-family: Kumbh Sans,sans-serif;
     color: var(--text-color);
     background-color: var(--app-bg-color);
-  
 `
 
 export default App;

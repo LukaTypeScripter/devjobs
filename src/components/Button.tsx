@@ -2,10 +2,11 @@ import React from 'react'
 import styled from 'styled-components'
 interface Props {
   Text:string
+  onClick?: () => void;
 }
-function Button({Text}:Props) {
+function Button({Text,onClick}:Props) {
   return (
-    <Btn>{Text}</Btn>
+    <Btn onClick={onClick}>{Text}</Btn>
   )
 }
 const Btn = styled.button `

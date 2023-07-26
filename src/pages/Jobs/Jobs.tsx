@@ -14,16 +14,18 @@ import Cards from '../../components/cards/Cards';
 
 function Jobs() {
     const dispatch = useDispatch();
-    const filteredJobs = useSelector((state: RootState) => state.jobs.filteredJobs);
-
+    const Jobs = useSelector((state: RootState) => state.jobs);
+    const JobsFiltered = useSelector((state: RootState) => state.jobs.filteredJobs);
+    const [fullTimeOnly, setFullTimeOnly] = useState(false);
+    const [searchTerm,setSearchTerm] = useState('');
     useEffect(() => {
       const fetchJobsData = () => {
         dispatch(setJobs(data));
       };
       fetchJobsData();
     }, [dispatch]);
-    const handleFilter = (searchTerm: string) => {
-      dispatch(filterJobs(searchTerm));
+    const handleFilter = () => {
+      dispatch(filterJobs(searchTerm.toLowerCase())); 
     };
     const handleJobClick = (job: Job) => {
       dispatch(selectJob(job));
@@ -31,36 +33,48 @@ function Jobs() {
       
     };
    const {switchTheme,theme} = useContext(DarkModeContext)
+
+
+
   return (
     <>
     <Header switchTheme={switchTheme} theme={theme}/>
-    <HomePage>
+    <HomePage fullTimeOnly={fullTimeOnly}>
         <div className='header__filter'>
           <section className='fillter__bar'>
             <section className='section__fillter'>
-              <input type="text" name="search" className='search__inp' placeholder="Filter by title, companies, expertise…" autoComplete="off" />
+              <input type="text" name="search" className='search__inp' placeholder="Filter by title, companies, expertise…" autoComplete="off" onChange={(e) => setSearchTerm(e.target.value)} />
               <input type="text" className='global' autoComplete="off" placeholder="Filter by title, companies, expertise…" />
               <select name="" id="" className='selection'>
               <option value="false">Filter by location…</option>
+              {Jobs.jobs.map((job) => {
+                  return (
+                    <option key={job.id} value="false">{job.location}</option>
+                  )
+              }
+                 
+              )}
               </select>
               <label className='fillter__fulltime'>
-                <input type="checkbox"  className='none'/>
+                <input type="checkbox"  className='none'  checked={fullTimeOnly}
+    onChange={(e) => setFullTimeOnly(e.target.checked)}/>
                 <span className='check'>
                   Full Time
                 <span>&nbsp;Only</span>
                 </span>
               </label>
-              <Button Text='Search' />
+              <Button Text='Search' onClick={ handleFilter}/>
             </section>
           </section>
         </div>
-        <Cards />
+          <Cards jobs={JobsFiltered} handleJobClick={handleJobClick} />
+        
     </HomePage>
 
     </>
   )
 }
-const HomePage = styled.section`
+const HomePage = styled.section<{fullTimeOnly:boolean}>`
       width: 100%;
     display: flex;
     flex-direction: column;
@@ -172,7 +186,8 @@ const HomePage = styled.section`
     background-size: 12px 10px;
     background-position: 50%;
     background-repeat: no-repeat;
-    opacity: 0;
+    opacity: ${props => props.fullTimeOnly ? "1": "0"};
+    background-color: ${props => props.fullTimeOnly ? "#5964e0" : ""};
     }
 }
 .none {

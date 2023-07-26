@@ -16,7 +16,7 @@ const jobsReducer = (state = initialState, action: JobsAction): JobsState => {
       const searchTerm = action.payload.toLowerCase();
       const filteredJobs = state.jobs.filter(
         (job) =>
-          job.location.toLowerCase().includes(searchTerm) ||
+          job.position.toLowerCase().includes(searchTerm) ||
           job.company.toLowerCase().includes(searchTerm)
       );
       return { ...state, filteredJobs };
