@@ -1,7 +1,7 @@
 
 import { useContext, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setJobs, filterJobs, selectJob } from '../../actions/jobActions';
+import { setJobs, filterJobs, selectJob, toggleFullTimeOnly, selectLocation } from '../../actions/jobActions';
 import { data } from '../../data';
 import { RootState } from '../../store';
 import { Job } from '../../types';
@@ -11,6 +11,10 @@ import styled from 'styled-components';
 import { iconCheck, iconLocation, iconSearch } from '../../assets/desktop';
 import Button from '../../components/Button';
 import Cards from '../../components/cards/Cards';
+import useMediaQuery from '../../hooks/useMediaQuery';
+import { iconFilter } from '../../assets/mobile';
+import { searchWhite } from '../../assets/logos';
+import FilterModal from '../../components/filterModal/FilterModal';
 
 function Jobs() {
     const dispatch = useDispatch();
@@ -18,6 +22,7 @@ function Jobs() {
     const JobsFiltered = useSelector((state: RootState) => state.jobs.filteredJobs);
     const [fullTimeOnly, setFullTimeOnly] = useState(false);
     const [searchTerm,setSearchTerm] = useState('');
+    const [isOpenModal,setIsOpenModal] = useState(false);
     useEffect(() => {
       const fetchJobsData = () => {
         dispatch(setJobs(data));
@@ -25,47 +30,74 @@ function Jobs() {
       fetchJobsData();
     }, [dispatch]);
     const handleFilter = () => {
-      dispatch(filterJobs(searchTerm.toLowerCase())); 
+      dispatch(filterJobs(searchTerm.toLowerCase()));
+      setIsOpenModal(false)
     };
     const handleJobClick = (job: Job) => {
       dispatch(selectJob(job));
       console.log(job);
       
     };
+    const handleFullTImeToggle = () => {
+      setFullTimeOnly((prev) => !prev)
+      dispatch(toggleFullTimeOnly())
+    }
+    const handleLocationChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+      const selectedLocation = event.target.value === 'false' ? null : event.target.value;
+      dispatch(selectLocation(selectedLocation)); 
+    };
    const {switchTheme,theme} = useContext(DarkModeContext)
-
+   const isAboveMediumScreens = useMediaQuery("(min-width:768px)");
 
 
   return (
     <>
-    <Header switchTheme={switchTheme} theme={theme}/>
+        <Header switchTheme={switchTheme} theme={theme}/>
     <HomePage fullTimeOnly={fullTimeOnly}>
+
         <div className='header__filter'>
           <section className='fillter__bar'>
             <section className='section__fillter'>
               <input type="text" name="search" className='search__inp' placeholder="Filter by title, companies, expertise…" autoComplete="off" onChange={(e) => setSearchTerm(e.target.value)} />
-              <input type="text" className='global' autoComplete="off" placeholder="Filter by title, companies, expertise…" />
-              <select name="" id="" className='selection'>
-              <option value="false">Filter by location…</option>
-              {Jobs.jobs.map((job) => {
-                  return (
-                    <option key={job.id} value="false">{job.location}</option>
-                  )
-              }
-                 
+              <input type="text" className='global' autoComplete="off" placeholder="Filter by title" />
+             {isAboveMediumScreens ? (
+               <select name="" id="" className='selection' onChange={handleLocationChange}>
+               <option value="false">Filter by location…</option>
+               {Jobs.jobs.map((job) => {
+                   return (
+                     <option key={job.id} value={job.location}>{job.location}</option>
+                   )
+               }
+                  
+               )}
+               </select>
+             ) : (
+                <img className='fillter__icon' src={iconFilter} alt="" onClick={() => setIsOpenModal(!isOpenModal)} />
+             )}
+             {isAboveMediumScreens && (
+               <label className='fillter__fulltime'>
+               <input type="checkbox"  className='none'  checked={fullTimeOnly}
+   onChange={handleFullTImeToggle}/>
+               <span className='check'>
+                 Full Time
+               <span>&nbsp;Only</span>
+               </span>
+             </label>
+             )}
+              {isAboveMediumScreens ?
+              (
+                <Button Text='Search' onClick={ handleFilter} marginRigth={"16px"}/>
+              ) : (
+                <Button onClick={ handleFilter} imgs={searchWhite} width='48px' height='48px' marginRigth={"16px"}/>
               )}
-              </select>
-              <label className='fillter__fulltime'>
-                <input type="checkbox"  className='none'  checked={fullTimeOnly}
-    onChange={(e) => setFullTimeOnly(e.target.checked)}/>
-                <span className='check'>
-                  Full Time
-                <span>&nbsp;Only</span>
-                </span>
-              </label>
-              <Button Text='Search' onClick={ handleFilter}/>
-            </section>
+            </section>   
           </section>
+          {isOpenModal && !isAboveMediumScreens && (
+ <FilterModal handleFullTImeToggle={handleFullTImeToggle} fullTimeOnly={fullTimeOnly} handleFilter={handleFilter} handleLocationChange={handleLocationChange}
+ setIsOpenModal={setIsOpenModal}
+ />
+          )}
+         
         </div>
           <Cards jobs={JobsFiltered} handleJobClick={handleJobClick} />
         
@@ -113,6 +145,10 @@ const HomePage = styled.section<{fullTimeOnly:boolean}>`
     outline: none;
     border-right: 1px solid rgba(110,128,152,.2);
     cursor: pointer;
+    @media (max-width: 767px){
+      display: none;
+    }
+
 
 }
     }
@@ -128,7 +164,9 @@ const HomePage = styled.section<{fullTimeOnly:boolean}>`
     appearance: none;
     outline: none;
     cursor: pointer;
-
+    @media (max-width: 767px) {
+    display: flex;
+}
 }
 .selection {
     flex: 1;
@@ -150,8 +188,8 @@ const HomePage = styled.section<{fullTimeOnly:boolean}>`
     color: var(--placeholder-color);
 }
 .fillter__fulltime {
-  margin-left: 32px;
-    margin-right: 26px;
+  margin-right: 10px;
+  margin-left: 10px;
     display: flex;
     align-items: center;
     flex-shrink: 0;
@@ -193,5 +231,11 @@ const HomePage = styled.section<{fullTimeOnly:boolean}>`
 .none {
   display: none;
 }
+ .fillter__icon{
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+ }
+
 `
 export default Jobs

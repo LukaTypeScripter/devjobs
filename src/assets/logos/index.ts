@@ -10,7 +10,7 @@ import pomodoro from './pomodoro.svg'
 import scoot from './scoot.svg'
 import typemaster from './typemaster.svg'
 import vector from './vector.svg'
-
+import searchWhite from './icons8-search.svg'
 
 export {
     blogr,
@@ -24,5 +24,6 @@ export {
     pomodoro,
     scoot,
     typemaster,
-    vector
+    vector,
+    searchWhite
 }

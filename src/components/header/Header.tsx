@@ -1,6 +1,6 @@
 
 import styled from 'styled-components'
-import { iconMoon, iconSun, logo, patternDetail } from '../../assets/desktop'
+import { iconMoon, iconSun, logo, patternDetail, patternHeader } from '../../assets/desktop'
 import { Link } from 'react-router-dom'
 interface Props {
     switchTheme: () => void
@@ -33,11 +33,16 @@ const HeaderCont = styled.header<{theme:string}>`
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-image: url(${patternDetail});
+    background-image: url(${patternHeader});
     background-repeat: no-repeat;
     background-position: 0 100%;
     background-size: cover;
     padding-top: 45px;
+    @media (max-width: 767px) {
+        background-image: url(${patternDetail});
+        padding-top: 32px;
+    min-height: 136px;
+    }
     .top__header {
         display: flex;
         justify-content: space-between;

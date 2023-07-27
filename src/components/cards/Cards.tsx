@@ -49,7 +49,7 @@ const CardCont = styled.div`
 
   .job__item {
     position: relative;
-    width: 260px;
+    width: 280px;
     margin-right: 30px;
     margin-top: 25px;
     background: var(--filters-bg-color);
@@ -62,11 +62,13 @@ const CardCont = styled.div`
     margin-bottom: 40px;
     text-decoration: none;
     @media (max-width: 1023px) {
-      width: calc(50% - 5px);
+      width: 300px;
+      margin-right: 10px;
     }
-    @media (max-width: 723px) {
+    @media (max-width: 767px) {
       width: 100%;
-      margin: 0;
+    margin-right: 0;
+    margin-bottom: 24px;
     }
   }
   .job__container {

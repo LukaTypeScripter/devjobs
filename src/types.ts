@@ -22,12 +22,16 @@ export interface Job {
     jobs: Job[];
     filteredJobs: Job[];
     selectedJob: Job | null;
+    showFullTimeOnly:boolean;
+    selectedLocation: string | null;
   }
   
   export enum ActionType {
     SET_JOBS = 'SET_JOBS',
     FILTER_JOBS = 'FILTER_JOBS',
     SELECT_JOB = 'SELECT_JOB',
+    TOGGLE_FULL_TIME_ONLY = 'TOGGLE_FULL_TIME_ONLY',
+    SELECT_LOCATION = 'SELECT_LOCATION',
   }
   
   export interface SetJobsAction {
@@ -46,6 +50,13 @@ export interface Job {
     type: ActionType.SELECT_JOB;
     payload: Job | null;
   }
+  interface ToggleFullTimeOnlyAction {
+    type: ActionType.TOGGLE_FULL_TIME_ONLY;
+  }
   
+  interface SelectLocationAction {
+    type: ActionType.SELECT_LOCATION;
+    payload: string | null;
+  }
   // Add the new action to the JobsAction union type
-  export type JobsAction = SetJobsAction | FilterJobsAction | SelectJobAction;
+  export type JobsAction = SetJobsAction | FilterJobsAction | SelectJobAction | ToggleFullTimeOnlyAction | SelectLocationAction;

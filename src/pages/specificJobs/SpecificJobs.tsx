@@ -45,9 +45,9 @@ function SpecificJobs() {
               <p className='job__title'>{filteredspecificJob?.position}</p>
               <p className='job__country'>{filteredspecificJob?.location}</p>
             </section>
-            <section className='rigth__side'>
-            <Link to={`${filteredspecificJob?.website}`} target='_blank' className='company__links'>
-                  Company Site
+            <section className='rigth-side'>
+            <Link to={`${filteredspecificJob?.website}`} target='_blank' className='company__linkss'>
+                  apply Now
                 </Link>
             </section>
           </section>
@@ -97,6 +97,14 @@ const DetailsCont = styled.div`
     border-bottom-right-radius: 6px;
     border-top-right-radius: 6px;
     overflow: hidden;
+    @media (max-width: 767px) {
+      flex-direction: column;
+      align-items: center;
+      overflow: visible;
+    border-radius: 6px;
+    margin-top: 25px;
+
+    }
 }
 .job__logo__cont {
     flex-shrink: 0;
@@ -106,10 +114,21 @@ const DetailsCont = styled.div`
     align-items: center;
     justify-content: center;
     padding: 30px;
+    @media (max-width: 767px)  {
+      width: 50px;
+    height: 50px;
+    padding: 5px;
+    border-radius: 15px;
+    margin-top: -30px;
+    }
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      @media (max-width: 767px) {
+        width: 50%;
+      height: 50%;
+      }
     }
 }
 .company__info {
@@ -143,26 +162,7 @@ const DetailsCont = styled.div`
   padding: 20px 40px 20px 0;
 
     display: flex;
-    .company__links {
-      font-style: normal;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 16px;
-    text-align: center;
-    color: #fff;
-    background-color: #5964e0;
-    border-radius: 5px;
-    padding: 16px 20px;
-    min-width: 141px;
-    cursor: pointer;
-    appearance: none;
-    border: none;
-    outline: none;
-    transition: background-color .2s ease-out;
-    text-decoration: none;
-    background-color: var(--button-light-bg-color);
-    color: var(--button-light-color);
-    }
+   
    
 }
 
@@ -180,24 +180,37 @@ const DetailsCont = styled.div`
     background-color: var(--filters-bg-color);
     border-radius: 6px;
     padding: 48px;
+    @media (max-width: 767px) {
+     padding: 40px 24px;
+    }
     .top__info {
       width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 40px;
+    @media (max-width: 767px) {
+      flex-direction: column;
+    }
         .left__side {
           display: flex;
     flex-direction: column;
     align-items: flex-start;
+    @media (max-width: 767px) {
+      margin-bottom: 54px;
+    }
         }
-        .rigth-side {
-          display: flex;
-        }
+      
 }
     }
 
 }
+.rigth-side {
+          display: flex;
+          @media (max-width: 767px) {
+      width: 100%;
+    }
+        }
 .job__post {
       display: flex;
       align-items: center;
@@ -279,5 +292,29 @@ const DetailsCont = styled.div`
     color: #5964e0;
     margin: 0;
       }
+      .company__links, .company__linkss {
+      font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 16px;
+    text-align: center;
+    color: #fff;
+    border-radius: 5px;
+    padding: 16px 20px;
+   width: 100%;
+    cursor: pointer;
+    appearance: none;
+    border: none;
+    outline: none;
+    transition: background-color .2s ease-out;
+    text-decoration: none;
+    background-color: var(--button-light-bg-color);
+    color: var(--button-light-color);
+    }
+    .company__linkss {
+      background-color: #5964e0;
+      color: var(--button-light-bg-color);
+    }
+    
 `
 export default SpecificJobs
