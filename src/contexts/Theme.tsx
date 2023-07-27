@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useState } from "react";
 import { DarkModeContextValue, initialContextValue } from "./types/theme";
 const DarkModeContext = createContext<DarkModeContextValue>(initialContextValue);
 export const DarkModeContextProvider = ({

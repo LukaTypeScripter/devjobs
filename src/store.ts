@@ -1,4 +1,4 @@
-// src/store.ts
+
 import { createStore, applyMiddleware, combineReducers, Store } from 'redux';
 import thunk from 'redux-thunk';
 import jobsReducer from './reducers/jobReducer';

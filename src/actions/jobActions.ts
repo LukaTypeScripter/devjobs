@@ -1,4 +1,4 @@
-// src/actions/jobActions.ts
+
 import { Job, ActionType, SetJobsAction, FilterJobsAction, SelectJobAction } from '../types';
 
 export const setJobs = (jobs: Job[]): SetJobsAction => ({

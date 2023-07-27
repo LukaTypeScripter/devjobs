@@ -15,7 +15,6 @@ import useMediaQuery from '../../hooks/useMediaQuery';
 import { iconFilter } from '../../assets/mobile';
 import { searchWhite } from '../../assets/logos';
 import FilterModal from '../../components/filterModal/FilterModal';
-
 function Jobs() {
     const dispatch = useDispatch();
     const Jobs = useSelector((state: RootState) => state.jobs);
